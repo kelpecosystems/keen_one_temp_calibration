@@ -11,7 +11,7 @@ joined_dat <- read_csv("derived_data/joined_calibration_mur_data.csv")
 
 
 linear_nofit <- ggplot(joined_dat,
-                  aes(x = temp_c_mur, y = temp_c,
+                  aes(x = temp_c_mur, y = temp_c_logger,
                       color = site)) +
   facet_wrap(vars(site)) +
   geom_point() +
@@ -22,7 +22,7 @@ linear_nofit <- ggplot(joined_dat,
   geom_abline(slope = 1, intercept = 0, lty = 2)
 
 log_fit <- ggplot(joined_dat,
-       aes(x = temp_c_mur, y = temp_c,
+       aes(x = temp_c_mur, y = temp_c_logger,
            color = site)) +
   facet_wrap(vars(site)) +
   geom_point() +

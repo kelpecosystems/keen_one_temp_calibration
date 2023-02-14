@@ -19,14 +19,14 @@ dat_with_fits <- joined_dat |>
   mutate(month = as.character(month)) |>
   group_by(site) |>
   nest() |>
-  summarize(linear_mods = map(data, ~lm(temp_c ~ temp_c_mur*month,
+  summarize(linear_mods = map(data, ~lm(temp_c_logger ~ temp_c_mur*month,
                                         data = .,)),
-            loglog_mods = map(data, ~lm(log(temp_c) ~ 
+            loglog_mods = map(data, ~lm(log(temp_c_logger) ~ 
                                               log(temp_c_mur)*month,
                                         data = .,)),
-            linear_mods_nomo = map(data, ~lm(temp_c ~ temp_c_mur,
+            linear_mods_nomo = map(data, ~lm(temp_c_logger ~ temp_c_mur,
                                         data = .,)),
-            loglog_mods_nomo = map(data, ~lm(log(temp_c) ~ 
+            loglog_mods_nomo = map(data, ~lm(log(temp_c_logger) ~ 
                                           log(temp_c_mur),
                                         data = .,))) |>
   mutate(linear_r2 = map_dbl(linear_mods, get_r2),
@@ -46,7 +46,7 @@ dat_pred_obs <- dat_with_fits |>
 
 # plot fitted against actual values to check bias
 ggplot(dat_pred_obs,
-       aes(x = exp(`log(temp_c)`), y = exp(.fitted), 
+       aes(x = exp(`log(temp_c_logger)`), y = exp(.fitted), 
            color = site)) +
   facet_wrap(vars(site)) +
   geom_point() +
@@ -63,10 +63,13 @@ ggsave("figures/fit.jpg")
 # plot residuals against actual values to check bias
 
 ggplot(dat_pred_obs,
-       aes(x = `log(temp_c)`, y = .resid, 
+       aes(x = `log(temp_c_logger)`, y = .resid, 
            color = site)) +
   facet_wrap(vars(site), scale = "free_x") +
   geom_point() +
   labs(color = "", x = "Log Logger Temperature (C)",
        y = "Model Residual") +
   ggthemes::scale_color_tableau(guide = "none") 
+
+ggsave("figures/residuals.jpg")
+
