@@ -5,7 +5,7 @@
 library(readr)
 library(dplyr)
 library(purrr)
-library(ggplot2)
+library(ggplot2); theme_set(theme_minimal(base_size = 12)) #for viz
 library(patchwork)
 library(performance)
 library(broom)
@@ -35,7 +35,7 @@ dat_with_fits <- joined_dat |>
          loglog_r2_nomo = map_dbl(loglog_mods_nomo, get_r2),
   )
 
-
+# write our model fits
 saveRDS(dat_with_fits, "derived_data/mur_calibration_models.rds")
 
 # look for bias in fits

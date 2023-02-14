@@ -3,7 +3,7 @@
 #' ---------------------------------------------------
 
 library(readr)
-library(ggplot2)
+library(ggplot2); theme_set(theme_minimal(base_size = 12)) #for viz
 library(patchwork)
 
 joined_dat <- read_csv("derived_data/joined_calibration_mur_data.csv")
