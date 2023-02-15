@@ -63,3 +63,18 @@ ggplot(sst_interpolated,
                      labels = c("observed", "modeled")) +
   labs(x = "", y = "Temperature (C)", color = "Data Source")
 ggsave("figures/modeled_timeseries.jpg", width = 8)
+
+
+
+# view in comparison
+sst_interpolated|> 
+  group_by(site) |>
+  mutate(ave_temp = mean(temp_c, na.rm=T)) |>
+  ungroup() |>
+ggplot(mapping = aes(x = datetime,
+           y = temp_c, 
+           color = ave_temp)) +
+  geom_point(alpha = 0.2) +
+  scale_colour_distiller(palette = "RdYlBu") +
+  labs(x = "", y = "Temperature (C)", color = "Average Site\nTemperature")
+ggsave("figures/combined_modeled_timeseries.jpg", width = 8)
