@@ -63,7 +63,8 @@ get_timeseries <- function(year,
                            latitude_bound = c(41.01585, 44.6308),
                            longitude_bound = c(-72.41734, -65.96161),
                            plot_check = FALSE,
-                           out_path = "raw_data/MURSST41/"){
+                           out_path = "raw_data/MURSST41/",
+                           sleep = 20){
 
   #create a date vector
   dates <- c(paste0(year, "-01-01"), paste0(year, "-12-31"))
@@ -121,6 +122,8 @@ get_timeseries <- function(year,
   print("Done. Purging cache.")
   cache_delete(dat)
   
+  Sys.sleep(sleep)
+  
   #return
   ret
   
@@ -131,6 +134,5 @@ get_timeseries <- function(year,
 # Get the data by iterating over the years for the function
 #note, 2002-2003 are for schoodic
 purrr::walk(c(2002, 2003, seq(2013, 2022)), get_timeseries)
-
 
 
