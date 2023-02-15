@@ -19,7 +19,7 @@ linear_nofit <- ggplot(joined_dat,
   labs(color = "", y = "Logger Temperature (C)",
        x = "MUR 4.1 SST Temperature (C)",
        subtitle = "Raw Data with 1:1 line for reference") +
-  ggthemes::scale_color_tableau(guide = "none") +
+  ggthemes::scale_color_calc(guide = "none") +
   geom_abline(slope = 1, intercept = 0, lty = 2)
 
 log_fit <- ggplot(joined_dat,
@@ -32,7 +32,7 @@ log_fit <- ggplot(joined_dat,
   labs(color = "", y = "Logger Temperature (C)",
        x = "MUR 4.1 SST Temperature (C)",
        subtitle = "Log-Log Plot with linear model fits") +
-  ggthemes::scale_color_tableau(guide = "none") +
+  ggthemes::scale_color_calc(guide = "none") +
   stat_smooth(color = "black", method = "lm")
 
 

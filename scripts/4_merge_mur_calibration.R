@@ -27,6 +27,7 @@ sc <- unique(calibration$site) |> sort()
 sm <- unique(sst_mur$site)|> sort()
 
 scb <- sc[!(sc %in% sm)]
+smb <- sm[!(sm %in% sc)]
 
 print("Sites not matching...")
 scb
@@ -37,7 +38,9 @@ anti_join(calibration, sst_mur)
 
 # do the join
 joined_dat <- left_join(calibration, sst_mur) |>
-  filter(temp_c_mur != 0) # some weird 0 values in MUR product
+  filter(!is.nan(temp_c_mur)) # some weird 0 values in MUR product
+
+js <- unique(joined_dat$site) |> sort()
 
 ##### Write the joined data ####
 write_csv(joined_dat, "derived_data/joined_calibration_mur_data.csv")

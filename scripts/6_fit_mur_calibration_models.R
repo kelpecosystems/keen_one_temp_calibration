@@ -52,7 +52,7 @@ ggplot(dat_pred_obs,
   geom_point() +
   labs(color = "", x = "Logger Temperature (C)",
        y = "Predicted Temperature from MUR SST 4.1") +
-  ggthemes::scale_color_tableau(guide = "none") +
+  ggthemes::scale_color_calc(guide = "none") +
   geom_abline(slope = 1, intercept = 0, lty = 2) +
   geom_label(data = dat_with_fits |> mutate(x=5, y = 20),
              aes(x=x, y=y, 
@@ -69,7 +69,7 @@ ggplot(dat_pred_obs,
   geom_point() +
   labs(color = "", x = "Log Logger Temperature (C)",
        y = "Model Residual") +
-  ggthemes::scale_color_tableau(guide = "none") 
-
+  ggthemes::scale_color_calc(guide = "none") 
+  
 ggsave("figures/residuals.jpg")
 
