@@ -60,7 +60,7 @@ ggplot(sst_interpolated,
   geom_point() +
   facet_wrap(vars(site)) +
   scale_color_manual(values = c("red", "blue"),
-                     labels = c("observed", "modeled")) +
+                     labels = c("modeled", "observed")) +
   labs(x = "", y = "Temperature (C)", color = "Data Source")
 ggsave("figures/modeled_timeseries.jpg", width = 8)
 
